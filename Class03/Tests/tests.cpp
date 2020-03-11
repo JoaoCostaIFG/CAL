@@ -226,14 +226,14 @@ void testNearestPoints(NP_FUNC func, string alg) {
  * }
  */
 
-TEST(CAL_FP03, testNP_DC_4Threads) {
-  setNumThreads(4);
-  testNearestPoints(nearestPoints_DC_MT, "Divide and conquer with 4 threads");
-}
-
 /*
- * TEST(CAL_FP03, testNP_DC_8Threads) {
- *   setNumThreads(8);
- *   testNearestPoints(nearestPoints_DC_MT, "Divide and conquer with 8 threads");
+ * TEST(CAL_FP03, testNP_DC_4Threads) {
+ *   setNumThreads(4);
+ *   testNearestPoints(nearestPoints_DC_MT, "Divide and conquer with 4 threads");
  * }
  */
+
+TEST(CAL_FP03, testNP_DC_8Threads) {
+  setNumThreads(8);
+  testNearestPoints(nearestPoints_DC_MT, "Divide and conquer with 8 threads");
+}

@@ -138,14 +138,14 @@ static Result np_DC(vector<Point> &vp, int left, int right, int numThreads) {
 
   Result res;
   if (right - left == 1) { // Base case of two points
-    res.dmin = vp.at(0).distance(vp.at(1));
-    res.p1 = vp.at(0);
-    res.p2 = vp.at(1);
+    res.dmin = vp.at(left).distance(vp.at(right));
+    res.p1 = vp.at(left);
+    res.p2 = vp.at(right);
     return res;
   } else if (right - left == 0) { // Base case of single point: MAX_DOUBLE
     res.dmin = MAX_DOUBLE;
-    res.p1 = vp.at(0);
-    res.p2 = vp.at(0);
+    res.p1 = vp.at(left);
+    res.p2 = vp.at(right);
     return res;
   }
 
@@ -157,7 +157,8 @@ static Result np_DC(vector<Point> &vp, int left, int right, int numThreads) {
     res_r = np_DC(vp, mid + 1, right, numThreads);
   } else {
     std::thread t([&vp, &res_l, left, mid, numThreads] {
-      vector<Point> vv(vp); // copy array -> multiple threads might sort part of it at the same time
+      vector<Point> vv(vp); // copy array -> multiple threads might sort part of
+                            // it at the same time
       res_l = np_DC(vv, left, mid, numThreads / 2);
     });
     res_r = np_DC(vp, mid + 1, right, numThreads / 2);
@@ -168,6 +169,15 @@ static Result np_DC(vector<Point> &vp, int left, int right, int numThreads) {
   res = (res_l.dmin < res_r.dmin) ? res_l : res_r;
 
   // Determine the strip area around middle point
+  // double mid_line = (vp.at(right).x - vp.at(left).x) / 2.0;
+  // for (strip_l = left; strip_l < mid; ++strip_l) {
+  // if (vp.at(strip_l).x < mid_line && vp.at(strip_l).x > mid_line - res.dmin)
+  // break;
+  // }
+  // for (strip_r = right; strip_r > mid + 1; --strip_r) {
+  // if (vp.at(strip_r).x > mid_line && vp.at(strip_r).x < mid_line + res.dmin)
+  // break;
+  // }
   int strip_l, strip_r;
   for (strip_l = mid; strip_l >= left; --strip_l) {
     if (vp.at(mid).x - vp.at(strip_l).x > res.dmin)
