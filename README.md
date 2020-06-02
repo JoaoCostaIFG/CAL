@@ -30,7 +30,7 @@ At the time of delivery, the contributions to the private repository were as fol
 
 ## License
 
-The code in this repository is distributed under the **MIT LICENSE** (see
+The code in this repository is distributed under the **GPL3 LICENSE** (see
 LICENSE file). To use our graph/map data, you must include our names, the link
 to this repository and a reference to [OpenStreetMap](https://www.openstreetmap.or)
 in the crediting section of your work.
